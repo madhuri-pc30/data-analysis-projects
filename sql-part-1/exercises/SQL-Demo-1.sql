@@ -10,6 +10,8 @@ select *
   FROM formula_one.dbo.lap_times
   where time < '0:57.0'
 
+  #This is the additional comment
+
   USE formula_one
   SELECT Top 100 *
   From pit_stops
