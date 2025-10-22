@@ -22,19 +22,33 @@ Ira was asked by a customer for titles that have been tagged "Meditation". 
 As you create a query for Ira, think about how the tables 
 in BooksDB are organized as you write your query.
 
-SELECT title
-FROM BooksDB.dbo.books
-WHERE book_id IN (
-    SELECT book_id
-    FROM BooksDB.dbo.book_tags
-    WHERE tag_id IN (
-        SELECT tag_id
-        FROM BooksDB.dbo.tags
-        WHERE tag_name = 'Meditation'
-    )
-);
+SELECT b.title
 
---Answer -10000 rows 
+FROM BooksDB.dbo.books as b
+
+WHERE b.book_id IN 
+
+    (
+
+        SELECT b_tags.goodreads_book_id
+
+        FROM BooksDB.dbo.book_tags as b_tags
+
+        WHERE b_tags.tag_id IN
+
+        (
+
+            SELECT tag.tag_id
+
+            FROM BooksDB.dbo.tags as tag
+
+            WHERE tag.tag_name LIKE '%Meditation%'
+
+        )
+
+    )
+
+--Answer 44 rows 
 
 ## QUESTION 3:  Alyce
 Alyce wants to create a display of books with an average rating of 4.2 or
